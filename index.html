@@ -2,44 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kabuabua Primary - JSS Results</title>
+<title>Kabuabua Primary - JSS Results + Logo</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#f0fdf4}
 header{background:#15803d;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
 .card{background:#fff;border-radius:12px;padding:16px;margin:10px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px}
+.top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:10px}
 .main{display:grid;grid-template-columns:380px 1fr;gap:10px;margin:10px}
-@media(max-width:900px){.main{grid-template-columns:1fr}}
+@media(max-width:900px){.main{grid-template-columns:1fr}.top{grid-template-columns:1fr 1fr}}
 input,select{width:100%;padding:10px;margin:6px 0;border:1px solid #cbd5e1;border-radius:8px;font-size:13px}
 button{width:100%;padding:12px;background:#15803d;color:#fff;border:0;border-radius:8px;font-weight:700;cursor:pointer}
-.btn-sm{width:auto;padding:6px 12px;font-size:12px}.btn-red{background:#dc2626}.btn-blue{background:#2563eb}.btn-purple{background:#7c3aed}
+.btn-sm{width:auto;padding:6px 12px;font-size:12px}.btn-red{background:#dc2626}.btn-blue{background:#2563eb}
 table{width:100%;border-collapse:collapse;font-size:12px}th{background:#15803d;color:#fff;padding:8px;text-align:left}td{padding:7px;border-bottom:1px solid #e2e8f0}
 #loginScreen{position:fixed;inset:0;background:#15803d;display:flex;align-items:center;justify-content:center;z-index:9999}
 .loginBox{background:#fff;padding:26px;border-radius:14px;width:90%;max-width:400px}
 .badge{background:#dcfce7;color:#166534;padding:2px 8px;border-radius:10px;font-size:11px}
-@media print{
-  header,.no-print{display:none!important}
-  .print-card{page-break-after:always;border:2px solid #15803d!important}
-}
+.logo-preview{width:60px;height:60px;border:2px dashed #15803d;border-radius:8px;object-fit:contain;display:block;margin:6px auto;background:#f0fdf4}
+@media print{header,.no-print{display:none!important}.print-card{page-break-after:always}}
 </style>
 </head>
 <body>
 <div id="loginScreen"><div class="loginBox">
-<h2 style="text-align:center;color:#15803d">🌱 KABUABUA PRIMARY<br><small>Junior Secondary Results - JSS</small></h2>
+<h2 style="text-align:center;color:#15803d"> KABUABUA PRIMARY<br><small>JSS Results + Logo</small></h2>
 <div style="margin-top:14px">
 <input id="user" placeholder="Username" value="teacher">
 <input id="pass" type="password" placeholder="Password" value="1234">
 <button onclick="login()">Login</button>
-<div style="font-size:11px;text-align:center;margin-top:8px;color:#64748b">Grade 7, 8, 9 - 9 CBC Subjects</div>
 </div></div></div>
 
-<header><h1>🌱 Kabuabua Primary | JSS Results System</h1><div><button class="btn-sm btn-blue" onclick="printCombined()">🖨️ Combined</button> <button class="btn-sm btn-red" onclick="logout()">Logout</button></div></header>
+<header><h1> Kabuabua Primary | JSS Results</h1><div><button class="btn-sm btn-blue" onclick="printCombined()">🖨️ Combined</button> <button class="btn-sm btn-red" onclick="logout()">Logout</button></div></header>
 
 <div class="top no-print">
-<div class="card"><b id="count" style="font-size:22px">0</b><div>Learners</div><span class="badge">Grade 7-9 JSS</span></div>
-<div class="card"><b id="meanAvg" style="font-size:22px">0</b><div>Class Mean</div><span class="badge">Out of 900</span></div>
-<div class="card"><b>CBC Grading</b><div style="font-size:11px">80-100 EE | 60-79 ME | 40-59 AE | Below 40 BE</div></div>
+<div class="card"><b id="count" style="font-size:22px">0</b><div>Learners</div><span class="badge">Grade 7-9</span></div>
+<div class="card"><b id="meanAvg" style="font-size:22px">0</b><div>Class Mean</div></div>
+<div class="card" style="border:2px solid #15803d">
+<b style="font-size:12px">🏫 SCHOOL LOGO</b>
+<img id="logoPreview" class="logo-preview" src="" alt="No Logo">
+<input type="file" id="logoInput" accept="image/*" style="font-size:11px">
+<input id="schoolNameInput" placeholder="School Name" value="KABUABUA PRIMARY SCHOOL" style="font-size:11px;padding:6px">
+<input id="poBoxInput" placeholder="P.O Box" value="P.O. Box - Thiiti, Mukothima" style="font-size:11px;padding:6px">
+<button style="padding:6px;font-size:11px;margin-top:4px" onclick="saveSettings()">💾 Save Logo & Name</button>
+<div style="font-size:9px;color:#64748b;margin-top:4px">Logo will show on all report cards</div>
+</div>
+<div class="card"><b>CBC Key</b><div style="font-size:10px">EE 80-100<br>ME 60-79<br>AE 40-59<br>BE Below 40</div></div>
 </div>
 
 <div class="main"><div class="no-print">
@@ -49,37 +55,53 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{background:#15803d;c
 <select id="stream"><option>Stream: Green</option><option>Stream: Yellow</option><option>Stream: Blue</option></select>
 <button onclick="addStudent()">Add Learner</button></div>
 
-<div class="card"><h3>Enter CBC Marks (0-100)</h3><select id="studentList"><option value="">-- Select Learner --</option></select>
-<input id="eng" type="number" placeholder="1. English (0-100)">
+<div class="card"><h3>Enter Marks (0-100)</h3><select id="studentList"><option value="">-- Select Learner --</option></select>
+<input id="eng" type="number" placeholder="1. English">
 <input id="kis" type="number" placeholder="2. Kiswahili">
 <input id="mat" type="number" placeholder="3. Mathematics">
 <input id="intSci" type="number" placeholder="4. Integrated Science">
 <input id="sst" type="number" placeholder="5. Social Studies">
-<input id="agri" type="number" placeholder="6. Agriculture & Nutrition">
-<input id="preTech" type="number" placeholder="7. Pre-Technical Studies">
-<input id="cre" type="number" placeholder="8. CRE / IRE / HRE">
-<input id="creative" type="number" placeholder="9. Creative Arts & Sports">
-<button style="background:#f59e0b;color:#111" onclick="saveMarks()">💾 Save & Grade CBC</button>
+<input id="agri" type="number" placeholder="6. Agriculture">
+<input id="preTech" type="number" placeholder="7. Pre-Technical">
+<input id="cre" type="number" placeholder="8. CRE">
+<input id="creative" type="number" placeholder="9. Creative Arts">
+<button style="background:#f59e0b;color:#111" onclick="saveMarks()">💾 Save Marks</button>
 </div></div>
 
-<div class="card"><div style="display:flex;justify-content:space-between" class="no-print"><h3>Results - Ranked | <select id="filterGrade" onchange="draw()" style="width:auto;display:inline;padding:4px"><option value="all">All Grades</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option></select></h3><div><button class="btn-sm btn-blue" onclick="printCombined()">Print Combined Class</button> <button class="btn-sm" onclick="window.print()">Print Page</button></div></div>
-
+<div class="card"><div style="display:flex;justify-content:space-between" class="no-print"><h3>Results - Ranked | <select id="filterGrade" onchange="draw()" style="width:auto;display:inline;padding:4px"><option value="all">All</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option></select></h3><div><button class="btn-sm btn-blue" onclick="printCombined()">Print Combined</button></div></div>
 <div style="overflow:auto" class="no-print"><table><thead><tr><th>#</th><th>Adm</th><th>Name</th><th>Grade</th><th>Total</th><th>Mean</th><th>Level</th><th>Action</th></tr></thead><tbody id="tableBody"></tbody></table></div>
-<div id="noData" style="text-align:center;padding:15px;color:#64748b" class="no-print">No learners yet - Add learners on left</div>
-
-<!-- PRINT AREA -->
+<div id="noData" style="text-align:center;padding:15px;color:#64748b" class="no-print">No learners yet</div>
 <div id="printArea"></div>
 </div></div>
 
 <script>
 let allStudents=JSON.parse(localStorage.getItem('kabuabua_jss_v1')||'[]');
-function save(){localStorage.setItem('kabuabua_jss_v1',JSON.stringify(allStudents));draw()}
-function getCBC(avg){
-  if(avg>=80) return 'EE - Exceeding';
-  if(avg>=60) return 'ME - Meeting';
-  if(avg>=40) return 'AE - Approaching';
-  return 'BE - Below';
+let schoolLogo=localStorage.getItem('kabuabua_logo')||'';
+let schoolName=localStorage.getItem('kabuabua_schName')||'KABUABUA PRIMARY SCHOOL';
+let poBox=localStorage.getItem('kabuabua_poBox')||'P.O. Box - Thiiti, Mukothima';
+
+document.getElementById('schoolNameInput').value=schoolName;
+document.getElementById('poBoxInput').value=poBox;
+if(schoolLogo) document.getElementById('logoPreview').src=schoolLogo;
+
+document.getElementById('logoInput').addEventListener('change', function(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(ev){ schoolLogo=ev.target.result; document.getElementById('logoPreview').src=schoolLogo; }
+  reader.readAsDataURL(file);
+});
+function saveSettings(){
+  schoolName=document.getElementById('schoolNameInput').value||'KABUABUA PRIMARY SCHOOL';
+  poBox=document.getElementById('poBoxInput').value||'';
+  localStorage.setItem('kabuabua_logo',schoolLogo);
+  localStorage.setItem('kabuabua_schName',schoolName);
+  localStorage.setItem('kabuabua_poBox',poBox);
+  alert(' Logo & School Name Saved! Will appear on all report cards');
 }
+
+function save(){localStorage.setItem('kabuabua_jss_v1',JSON.stringify(allStudents));draw()}
+function getCBC(avg){if(avg>=80) return 'EE'; if(avg>=60) return 'ME'; if(avg>=40) return 'AE'; return 'BE';}
+function getCBCFull(avg){if(avg>=80) return 'EE - Exceeding'; if(avg>=60) return 'ME - Meeting'; if(avg>=40) return 'AE - Approaching'; return 'BE - Below';}
 function addStudent(){
   const adm=admNo.value.trim(); const name=studName.value.trim(); const g=gradeClass.value; const st=stream.value;
   if(!adm||!name){alert('Enter Adm and Name');return}
@@ -88,85 +110,79 @@ function addStudent(){
   admNo.value='';studName.value='';save();
 }
 function saveMarks(){
-  const adm=studentList.value; if(!adm){alert('Select learner first');return}
+  const adm=studentList.value; if(!adm){alert('Select learner');return}
   const s=allStudents.find(x=>x.adm===adm);
   const vals=[eng,kis,mat,intSci,sst,agri,preTech,cre,creative].map(i=>parseInt(i.value)||0);
-  if(vals.some(v=>v>100)){alert('Max 100 per subject');return}
+  if(vals.some(v=>v>100)){alert('Max 100');return}
   [s.eng,s.kis,s.mat,s.intSci,s.sst,s.agri,s.preTech,s.cre,s.creative]=vals;
-  s.total=vals.reduce((a,b)=>a+b,0); s.mean=Math.round(s.total/9); s.cbc=getCBC(s.mean);
-  save(); alert(s.name+' Saved! Total: '+s.total+'/900 Mean: '+s.mean+' Level: '+s.cbc);
-  // Clear marks
+  s.total=vals.reduce((a,b)=>a+b,0); s.mean=Math.round(s.total/9); s.cbc=getCBCFull(s.mean);
+  save(); alert(s.name+' Saved! Total '+s.total);
   [eng,kis,mat,intSci,sst,agri,preTech,cre,creative].forEach(i=>i.value='');
 }
 function deleteStudent(adm){if(!confirm('Delete '+adm+'?'))return; allStudents=allStudents.filter(s=>s.adm!==adm); save()}
-function clearAll(){if(!allStudents.length)return alert('No data'); if(!confirm('DELETE ALL '+allStudents.length+' learners?'))return; allStudents=[];localStorage.removeItem('kabuabua_jss_v1');draw()}
+function clearAll(){if(!allStudents.length)return alert('No data'); if(!confirm('DELETE ALL?'))return; allStudents=[];localStorage.removeItem('kabuabua_jss_v1');draw()}
 
 function draw(){
   const filter=document.getElementById('filterGrade').value;
   let filtered=filter==='all'?allStudents:allStudents.filter(s=>s.grade===filter);
-  let sorted=[...filtered].sort((a,b)=>b.total-a.total);
-  let sum=0;
+  let sorted=[...filtered].sort((a,b)=>b.total-a.total); let sum=0;
   tableBody.innerHTML='';
-  sorted.forEach((s,i)=>{
-    sum+=s.mean||0;
+  sorted.forEach((s,i)=>{sum+=s.mean||0;
     tableBody.innerHTML+=`<tr><td>${i+1}</td><td>${s.adm}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.total}</td><td>${s.mean}</td><td><b>${s.cbc}</b></td><td><button class="btn-sm" onclick="printOne('${s.adm}')">Print</button> <button class="btn-sm btn-red" onclick="deleteStudent('${s.adm}')">Del</button></td></tr>`;
   });
   count.innerText=filtered.length; meanAvg.innerText=filtered.length?Math.round(sum/filtered.length):0;
-  studentList.innerHTML='<option value="">-- Select Learner --</option>'+allStudents.map(s=>`<option value="${s.adm}">${s.adm} - ${s.name} (${s.grade})</option>`).join('');
+  studentList.innerHTML='<option value="">-- Select Learner --</option>'+allStudents.map(s=>`<option value="${s.adm}">${s.adm} - ${s.name}</option>`).join('');
   noData.style.display=filtered.length?'none':'block';
-  // Default print area empty
-  if(!filtered.length) document.getElementById('printArea').innerHTML='';
 }
+
+function logoHtml(size=70){ return schoolLogo?`<img src="${schoolLogo}" style="width:${size}px;height:${size}px;object-fit:contain">`:`<div style="width:${size}px;height:${size}px;background:#15803d;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:50%;font-weight:bold;font-size:${size/2}px">K</div>`; }
 
 function printOne(adm){
   const s=allStudents.find(x=>x.adm===adm);
   const html=`<div class="print-card card" style="border:2px solid #15803d">
-    <div style="text-align:center;border-bottom:2px solid #15803d;padding-bottom:10px;margin-bottom:10px">
-      <h2 style="color:#15803d">KABUABUA PRIMARY SCHOOL</h2><p>P.O. Box - Thiiti, Mukothima | JSS Department</p>
-      <h3 style="margin-top:8px;background:#15803d;color:#fff;display:inline-block;padding:4px 16px;border-radius:6px">${s.grade} ${s.stream} - Term 3 2026 - INDIVIDUAL REPORT</h3>
+    <div style="display:flex;align-items:center;gap:15px;border-bottom:2px solid #15803d;padding-bottom:10px;margin-bottom:10px">
+      <div>${logoHtml(80)}</div>
+      <div style="text-align:center;flex:1"><h2 style="color:#15803d">${schoolName}</h2><p>${poBox} | JSS Department</p><h3 style="margin-top:6px;background:#15803d;color:#fff;display:inline-block;padding:4px 14px;border-radius:6px">${s.grade} ${s.stream} - INDIVIDUAL REPORT 2026</h3></div>
+      <div>${logoHtml(80)}</div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;margin-bottom:10px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:10px">
       <div><b>Learner:</b> ${s.name}</div><div><b>Adm No:</b> ${s.adm}</div>
-      <div><b>Grade:</b> ${s.grade}</div><div><b>Stream:</b> ${s.stream}</div>
-      <div><b>Total:</b> ${s.total}/900</div><div><b>Mean:</b> ${s.mean} - <b>${s.cbc}</b></div>
+      <div><b>Total:</b> ${s.total}/900</div><div><b>Mean:</b> ${s.mean} - ${s.cbc}</div>
     </div>
-    <table><thead><tr><th>#</th><th>Learning Area</th><th>Score /100</th><th>CBC Level</th></tr></thead><tbody>
+    <table><thead><tr><th>#</th><th>Learning Area</th><th>Score</th><th>Level</th></tr></thead><tbody>
       <tr><td>1</td><td>English</td><td>${s.eng}</td><td>${getCBC(s.eng)}</td></tr>
       <tr><td>2</td><td>Kiswahili</td><td>${s.kis}</td><td>${getCBC(s.kis)}</td></tr>
       <tr><td>3</td><td>Mathematics</td><td>${s.mat}</td><td>${getCBC(s.mat)}</td></tr>
       <tr><td>4</td><td>Integrated Science</td><td>${s.intSci}</td><td>${getCBC(s.intSci)}</td></tr>
       <tr><td>5</td><td>Social Studies</td><td>${s.sst}</td><td>${getCBC(s.sst)}</td></tr>
-      <tr><td>6</td><td>Agriculture & Nutrition</td><td>${s.agri}</td><td>${getCBC(s.agri)}</td></tr>
-      <tr><td>7</td><td>Pre-Technical Studies</td><td>${s.preTech}</td><td>${getCBC(s.preTech)}</td></tr>
-      <tr><td>8</td><td>CRE / IRE</td><td>${s.cre}</td><td>${getCBC(s.cre)}</td></tr>
-      <tr><td>9</td><td>Creative Arts & Sports</td><td>${s.creative}</td><td>${getCBC(s.creative)}</td></tr>
+      <tr><td>6</td><td>Agriculture</td><td>${s.agri}</td><td>${getCBC(s.agri)}</td></tr>
+      <tr><td>7</td><td>Pre-Technical</td><td>${s.preTech}</td><td>${getCBC(s.preTech)}</td></tr>
+      <tr><td>8</td><td>CRE</td><td>${s.cre}</td><td>${getCBC(s.cre)}</td></tr>
+      <tr><td>9</td><td>Creative Arts</td><td>${s.creative}</td><td>${getCBC(s.creative)}</td></tr>
     </tbody></table>
-    <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;font-size:11px;text-align:center">
-      <div><div style="border-top:1px solid #000;margin-top:40px;padding-top:4px">Class Teacher</div></div>
-      <div><div style="border-top:1px solid #000;margin-top:40px;padding-top:4px">Head Teacher</div></div>
-      <div><div style="border-top:1px solid #000;margin-top:40px;padding-top:4px">Parent / Guardian</div></div>
+    <div style="margin-top:25px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;font-size:11px;text-align:center">
+      <div><div style="border-top:1px solid #000;margin-top:40px">Class Teacher</div></div>
+      <div><div style="border-top:1px solid #000;margin-top:40px">Head Teacher</div></div>
+      <div><div style="border-top:1px solid #000;margin-top:40px">Parent</div></div>
     </div>
   </div>`;
-  document.getElementById('printArea').innerHTML=html;
-  window.print();
+  document.getElementById('printArea').innerHTML=html; window.print();
 }
 
 function printCombined(){
   const filter=document.getElementById('filterGrade').value;
   let filtered=filter==='all'?allStudents:allStudents.filter(s=>s.grade===filter);
-  if(!filtered.length)return alert('No learners for '+filter);
+  if(!filtered.length)return alert('No learners');
   filtered=[...filtered].sort((a,b)=>b.total-a.total);
-  let html=`<div class="print-card card"><div style="text-align:center;margin-bottom:10px"><h2>KABUABUA PRIMARY SCHOOL - JSS COMBINED RESULTS</h2><p>${filter==='all'?'All Grades':filter} | Term 3 2026 | Total Learners: ${filtered.length}</p></div>
-  <table><thead><tr><th>#</th><th>Adm</th><th>Name</th><th>Grade</th><th>Eng</th><th>Kis</th><th>Mat</th><th>IntSci</th><th>SST</th><th>Agri</th><th>PreTech</th><th>CRE</th><th>Creative</th><th>Total</th><th>Mean</th><th>Level</th></tr></thead><tbody>`;
-  filtered.forEach((s,i)=>{
-    html+=`<tr><td>${i+1}</td><td>${s.adm}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.eng}</td><td>${s.kis}</td><td>${s.mat}</td><td>${s.intSci}</td><td>${s.sst}</td><td>${s.agri}</td><td>${s.preTech}</td><td>${s.cre}</td><td>${s.creative}</td><td><b>${s.total}</b></td><td>${s.mean}</td><td>${s.cbc}</td></tr>`;
-  });
-  html+=`</tbody></table><p style="font-size:10px;margin-top:10px">Printed: ${new Date().toLocaleString()} | Key: EE=Exceeding (80-100), ME=Meeting (60-79), AE=Approaching (40-59), BE=Below (Below 40)</p></div>`;
-  document.getElementById('printArea').innerHTML=html;
-  window.print();
+  let html=`<div class="print-card card"><div style="display:flex;align-items:center;gap:15px;margin-bottom:12px">
+    <div>${logoHtml(60)}</div><div style="text-align:center;flex:1"><h2>${schoolName}</h2><p>${poBox}</p><p><b>${filter==='all'?'All Grades':filter} - COMBINED JSS RESULTS - 2026 - ${filtered.length} Learners</b></p></div><div>${logoHtml(60)}</div></div>
+  <table><thead><tr><th>#</th><th>Adm</th><th>Name</th><th>Grade</th><th>Eng</th><th>Kis</th><th>Mat</th><th>Sci</th><th>SST</th><th>Agri</th><th>PreT</th><th>CRE</th><th>Arts</th><th>Total</th><th>Mean</th><th>Level</th></tr></thead><tbody>`;
+  filtered.forEach((s,i)=>{ html+=`<tr><td>${i+1}</td><td>${s.adm}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.eng}</td><td>${s.kis}</td><td>${s.mat}</td><td>${s.intSci}</td><td>${s.sst}</td><td>${s.agri}</td><td>${s.preTech}</td><td>${s.cre}</td><td>${s.creative}</td><td><b>${s.total}</b></td><td>${s.mean}</td><td>${s.cbc}</td></tr>`; });
+  html+=`</tbody></table><p style="font-size:10px;margin-top:8px">Printed: ${new Date().toLocaleString()} | ${schoolName}</p></div>`;
+  document.getElementById('printArea').innerHTML=html; window.print();
 }
 
-function login(){if(user.value==='teacher'&&pass.value==='1234'){localStorage.setItem('kabuabua_jss_login','yes');loginScreen.style.display='none'}else alert('Use teacher / 1234')}
+function login(){if(user.value==='teacher'&&pass.value==='1234'){localStorage.setItem('kabuabua_jss_login','yes');loginScreen.style.display='none'}else alert('teacher / 1234')}
 function logout(){localStorage.removeItem('kabuabua_jss_login');location.reload()}
 if(localStorage.getItem('kabuabua_jss_login')==='yes')loginScreen.style.display='none';
 draw();
