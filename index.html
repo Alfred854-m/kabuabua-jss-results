@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kabuabua Primary - JSS + Logo + Exam Type</title>
+<title>Kabuabua Primary - JSS No Streams</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#f0fdf4}
@@ -23,25 +23,24 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{background:#15803d;c
 </head>
 <body>
 <div id="loginScreen"><div class="loginBox">
-<h2 style="text-align:center;color:#15803d">🌱 KABUABUA PRIMARY<br><small>JSS + Logo + Term Type</small></h2>
+<h2 style="text-align:center;color:#15803d"> KABUABUA PRIMARY<br><small>JSS - No Streams</small></h2>
 <div style="margin-top:14px">
 <input id="user" placeholder="Username" value="teacher">
 <input id="pass" type="password" placeholder="Password" value="1234">
 <button onclick="login()">Login</button>
 </div></div></div>
 
-<header><h1>🌱 Kabuabua Primary | JSS Results</h1><div><button class="btn-sm btn-blue" onclick="printCombined()">🖨️ Combined</button> <button class="btn-sm btn-red" onclick="logout()">Logout</button></div></header>
+<header><h1> Kabuabua Primary | JSS Results</h1><div><button class="btn-sm btn-blue" onclick="printCombined()">🖨️ Combined</button> <button class="btn-sm btn-red" onclick="logout()">Logout</button></div></header>
 
 <div class="top no-print">
 <div class="card"><b id="count" style="font-size:22px">0</b><div>Learners</div><span style="font-size:10px" id="currentExamLabel">End Term</span></div>
-<div class="card"><b id="meanAvg" style="font-size:22px">0</b><div>Class Mean</div><div style="font-size:10px">Out of 900</div></div>
+<div class="card"><b id="meanAvg" style="font-size:22px">0</b><div>Class Mean</div></div>
 <div class="card" style="border:2px solid #15803d;background:#f0fdf4">
 <b style="font-size:11px">🏫 SCHOOL SETTINGS</b>
 <img id="logoPreview" class="logo-preview" src="" alt="No Logo">
 <input type="file" id="logoInput" accept="image/*" style="font-size:11px">
 <input id="schoolNameInput" placeholder="School Name" value="KABUABUA PRIMARY SCHOOL" style="font-size:11px;padding:6px">
 <input id="poBoxInput" placeholder="P.O Box" value="P.O. Box - Thiiti, Mukothima" style="font-size:11px;padding:6px">
-<!-- NEW EXAM TYPE SELECTOR HERE -->
 <label style="font-size:10px;font-weight:bold;margin-top:6px;display:block">📝 EXAM TYPE:</label>
 <select id="examTypeSelect" style="font-size:12px;padding:8px;background:#fffbeb;border:2px solid #f59e0b;font-weight:bold">
   <option>Opener Exams</option>
@@ -56,16 +55,15 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{background:#15803d;c
 </select>
 <label style="font-size:10px;font-weight:bold;margin-top:4px;display:block">📅 YEAR:</label>
 <input id="yearInput" type="number" value="2026" style="font-size:12px;padding:6px">
-<button style="padding:8px;font-size:12px;margin-top:6px;background:#f59e0b;color:#111" onclick="saveSettings()">💾 Save Logo + Exam Type</button>
+<button style="padding:8px;font-size:12px;margin-top:6px;background:#f59e0b;color:#111" onclick="saveSettings()">💾 Save Settings</button>
 </div>
-<div class="card"><b style="font-size:11px">CBC Key</b><div style="font-size:10px">EE 80-100<br>ME 60-79<br>AE 40-59<br>BE Below 40</div><div style="margin-top:8px;font-size:10px;background:#fef3c7;padding:4px;border-radius:4px"><b>Current:</b><br><span id="displayExamType">End Term Exams - Term 3 2026</span></div></div>
+<div class="card"><b style="font-size:11px">CBC Key</b><div style="font-size:10px">EE 80-100<br>ME 60-79<br>AE 40-59<br>BE Below 40</div><div style="margin-top:8px;font-size:10px;background:#fef3c7;padding:4px;border-radius:4px"><span id="displayExamType">End Term Exams - Term 3 2026</span></div></div>
 </div>
 
 <div class="main"><div class="no-print">
 <div class="card"><div style="display:flex;justify-content:space-between"><h3>Add Learner</h3><button class="btn-sm btn-red" onclick="clearAll()">Clear All</button></div>
-<input id="admNo" placeholder="Adm No"><input id="studName" placeholder="Learner Name">
+<input id="admNo" placeholder="Adm No e.g KAB/001"><input id="studName" placeholder="Learner Full Name">
 <select id="gradeClass"><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option></select>
-<select id="stream"><option>Green</option><option>Yellow</option><option>Blue</option></select>
 <button onclick="addStudent()">Add Learner</button></div>
 
 <div class="card"><h3>Enter Marks (0-100)</h3><select id="studentList"><option value="">-- Select Learner --</option></select>
@@ -74,10 +72,10 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{background:#15803d;c
 <input id="mat" type="number" placeholder="3. Mathematics">
 <input id="intSci" type="number" placeholder="4. Integrated Science">
 <input id="sst" type="number" placeholder="5. Social Studies">
-<input id="agri" type="number" placeholder="6. Agriculture">
-<input id="preTech" type="number" placeholder="7. Pre-Technical">
-<input id="cre" type="number" placeholder="8. CRE">
-<input id="creative" type="number" placeholder="9. Creative Arts">
+<input id="agri" type="number" placeholder="6. Agriculture & Nutrition">
+<input id="preTech" type="number" placeholder="7. Pre-Technical Studies">
+<input id="cre" type="number" placeholder="8. CRE / IRE">
+<input id="creative" type="number" placeholder="9. Creative Arts & Sports">
 <button style="background:#f59e0b;color:#111" onclick="saveMarks()">💾 Save Marks</button>
 </div></div>
 
@@ -128,17 +126,16 @@ function saveSettings(){
   localStorage.setItem('kabuabua_term',term);
   localStorage.setItem('kabuabua_year',year);
   updateDisplay();
-  alert('✅ Saved! Logo + '+examType+' - '+term+' '+year+' will show on all report cards');
+  alert(' Saved! '+examType+' - '+term+' '+year);
 }
-
 function save(){localStorage.setItem('kabuabua_jss_v1',JSON.stringify(allStudents));draw()}
 function getCBC(avg){if(avg>=80) return 'EE'; if(avg>=60) return 'ME'; if(avg>=40) return 'AE'; return 'BE';}
 function getCBCFull(avg){if(avg>=80) return 'EE - Exceeding'; if(avg>=60) return 'ME - Meeting'; if(avg>=40) return 'AE - Approaching'; return 'BE - Below';}
 function addStudent(){
-  const adm=admNo.value.trim(); const name=studName.value.trim(); const g=gradeClass.value; const st=stream.value;
+  const adm=admNo.value.trim(); const name=studName.value.trim(); const g=gradeClass.value;
   if(!adm||!name){alert('Enter Adm and Name');return}
   if(allStudents.find(s=>s.adm===adm)){alert('Adm exists');return}
-  allStudents.push({adm,name:name.toUpperCase(),grade:g,stream:st,eng:0,kis:0,mat:0,intSci:0,sst:0,agri:0,preTech:0,cre:0,creative:0,total:0,mean:0,cbc:'-'});
+  allStudents.push({adm,name:name.toUpperCase(),grade:g,eng:0,kis:0,mat:0,intSci:0,sst:0,agri:0,preTech:0,cre:0,creative:0,total:0,mean:0,cbc:'-'});
   admNo.value='';studName.value='';save();
 }
 function saveMarks(){
@@ -171,7 +168,7 @@ function printOne(adm){
   const html=`<div class="print-card card" style="border:2px solid #15803d">
     <div style="display:flex;align-items:center;gap:15px;border-bottom:2px solid #15803d;padding-bottom:10px;margin-bottom:10px">
       <div>${logoHtml(80)}</div>
-      <div style="text-align:center;flex:1"><h2 style="color:#15803d">${schoolName}</h2><p>${poBox}</p><h3 style="margin-top:6px;background:#15803d;color:#fff;display:inline-block;padding:4px 14px;border-radius:6px">${s.grade} ${s.stream} - ${examType} - ${term} ${year}</h3></div>
+      <div style="text-align:center;flex:1"><h2 style="color:#15803d">${schoolName}</h2><p>${poBox}</p><h3 style="margin-top:6px;background:#15803d;color:#fff;display:inline-block;padding:4px 14px;border-radius:6px">${s.grade} - ${examType} - ${term} ${year}</h3></div>
       <div>${logoHtml(80)}</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:10px">
